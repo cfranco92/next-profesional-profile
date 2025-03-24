@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "../mui-tailwind-compat.css";
 
 :root {
   --background: #ffffff;

@@ -1,0 +1,27 @@
+/* 
+  Archivo para resolver posibles conflictos entre MUI y Tailwind
+  Estos estilos ayudan a que ambos sistemas funcionen juntos
+*/
+
+/* Prioritizar estilos de componentes MUI sobre los reset globales de Tailwind */
+.MuiButtonBase-root {
+  font-family: inherit;
+}
+
+/* Asegurar que los estilos de Tailwind no afecten negativamente a MUI */
+.MuiInputBase-root input {
+  background: inherit;
+  color: inherit;
+}
+
+/* Preservar estilos de MUI para ciertos elementos específicos */
+.MuiDialog-paper,
+.MuiPaper-root,
+.MuiPopover-paper {
+  outline: none !important;
+}
+
+/* Permitir que los iconos de MUI funcionen correctamente */
+.MuiSvgIcon-root {
+  vertical-align: middle;
+} 
