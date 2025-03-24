@@ -16,6 +16,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +29,12 @@ const geistMono = Geist_Mono({
 });
 
 const drawerWidth = 240;
-const navItems = ["Home", "About", "Contact"];
+const navItems = [
+  { name: "Home", path: "/" },
+  { name: "About", path: "/about" },
+  { name: "Portfolio", path: "/portfolio" },
+  { name: "Contact", path: "/contact" }
+];
 
 export default function RootLayout({
   children,
@@ -52,14 +58,16 @@ export default function RootLayout({
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
+        <Link href="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+          Cristian Franco
+        </Link>
       </Typography>
       <Divider />
       <List>
         {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
+          <ListItem key={item.name} disablePadding>
+            <ListItemButton sx={{ textAlign: "center" }} component={Link} href={item.path}>
+              <ListItemText primary={item.name} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -83,29 +91,36 @@ export default function RootLayout({
         >
           <AppBar component="nav">
             <Toolbar>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="start"
-                onClick={handleDrawerToggle}
-                sx={{ mr: 2, display: { sm: "none" } }}
-              >
-                <MenuIcon />
-              </IconButton>
               <Typography
                 variant="h6"
                 component="div"
-                sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+                sx={{ flexGrow: 1, display: { xs: "block", sm: "block" } }}
               >
-                MUI
+                <Link href="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  Cristian Franco
+                </Link>
               </Typography>
               <Box sx={{ display: { xs: "none", sm: "block" } }}>
                 {navItems.map((item) => (
-                  <Button key={item} sx={{ color: "#fff" }}>
-                    {item}
+                  <Button 
+                    key={item.name} 
+                    sx={{ color: "#fff" }}
+                    component={Link}
+                    href={item.path}
+                  >
+                    {item.name}
                   </Button>
                 ))}
               </Box>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="end"
+                onClick={handleDrawerToggle}
+                sx={{ ml: 2, display: { sm: "none" } }}
+              >
+                <MenuIcon />
+              </IconButton>
             </Toolbar>
           </AppBar>
           <nav>
@@ -117,6 +132,7 @@ export default function RootLayout({
               ModalProps={{
                 keepMounted: true,
               }}
+              anchor="left"
               sx={{
                 display: { xs: "block", sm: "none" },
                 "& .MuiDrawer-paper": {
